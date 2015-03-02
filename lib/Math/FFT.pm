@@ -61,7 +61,7 @@ sub clone {
 sub cdft {
   my $self = shift;
   my $n = $self->{n};
-  die "data size ($n) must be an integer power of 2" unless check_n($n);
+  die "data size ($n) must be an integer power of 2" unless _check_n($n);
   my $data = [ @{$self->{data}} ];
   _cdft($n, 1, $data, $self->{ip}, $self->{w});
   $self->{type} = 'cdft';
@@ -95,7 +95,7 @@ sub invcdft {
 sub rdft {
   my $self = shift;
   my $n = $self->{n};
-  die "data size ($n) must be an integer power of 2" unless check_n($n);
+  die "data size ($n) must be an integer power of 2" unless _check_n($n);
   my $data = [ @{$self->{data}} ];
   _rdft($n, 1, $data, $self->{ip}, $self->{w});
   $self->{type} = 'rdft';
@@ -129,7 +129,7 @@ sub invrdft {
 sub ddct {
   my $self = shift;
   my $n = $self->{n};
-  die "data size ($n) must be an integer power of 2" unless check_n($n);
+  die "data size ($n) must be an integer power of 2" unless _check_n($n);
   my $data = [ @{$self->{data}} ];
   _ddct($n, -1, $data, $self->{ip}, $self->{w});
   $self->{type} = 'ddct';
@@ -164,7 +164,7 @@ sub invddct {
 sub ddst {
   my $self = shift;
   my $n = $self->{n};
-  die "data size ($n) must be an integer power of 2" unless check_n($n);
+  die "data size ($n) must be an integer power of 2" unless _check_n($n);
   my $data = [ @{$self->{data}} ];
   _ddst($n, -1, $data, $self->{ip}, $self->{w});
   $self->{type} = 'ddst';
@@ -200,7 +200,7 @@ sub dfct {
   my $self = shift;
   my $np1 = $self->{n};
   my $n = $np1 - 1;
-  die "data size ($n) must be an integer power of 2" unless check_n($n);
+  die "data size ($n) must be an integer power of 2" unless _check_n($n);
   my $nt = int(2 + $n/2);
   my $t = [];
   my $data = [ @{$self->{data}} ];
@@ -243,7 +243,7 @@ sub invdfct {
 sub dfst {
   my $self = shift;
   my $n = $self->{n};
-  die "data size ($n) must be an integer power of 2" unless check_n($n);
+  die "data size ($n) must be an integer power of 2" unless _check_n($n);
   my $data = [ @{$self->{data}} ];
   my $nt = int(2 + $n/2);
   my $t = [];
@@ -278,7 +278,7 @@ sub invdfst {
 }
 
 # check if $n is a power of 2
-sub check_n {
+sub _check_n {
   my $n = shift;
   my $y = log($n) / 0.693147180559945309417;
   return abs($y-int($y)) < 1e-6 ? 1 : 0;
@@ -397,7 +397,7 @@ sub spctrm {
 		 },
 		};
   if (not $args{segments} or ($args{segments} == 1 and not $args{number})) {
-    die "data size ($n) must an integer power of 2" unless check_n($n);
+    die "data size ($n) must an integer power of 2" unless _check_n($n);
     if ($win_fun) {
       $d = [ @{$self->{data}}];
       $win_fun = $win_sub->{$win_fun} if ref($win_fun) ne 'CODE';
@@ -425,7 +425,7 @@ sub spctrm {
     my $m = $args{number};
     die 'Please specify a value for "number" in spctrm()'
       if ($k and ! $m); 
-    die "number ($m) must an integer power of 2" unless check_n($m);
+    die "number ($m) must an integer power of 2" unless _check_n($m);
     my $m2 = $m+$m;
     my $overlap = $args{overlap};
     my $N = $overlap ? ($k+1)*$m : 2*$k*$m;
@@ -616,6 +616,11 @@ The methods available include the following.
 =head2 FFT METHODS
 
 =over
+
+=item C<my $fft = Math::FFT-E<gt>new($series)>
+
+The constructor. Pass it an array of numbers, with a length that is a power
+of 2.
 
 =item C<$coeff = $fft-E<gt>cdft();>
 
@@ -816,6 +821,34 @@ where, excluding the scale,
 
 A scaling C<$orig_data-E<gt>[$i] *= 2.0/$n> is then done so that
 C<$orig_data> coincides with the original C<$data>.
+
+=item C<my $other_fft = $fft-E<gt>clone($other_series)>
+
+See "CLONING" below.
+
+=item C<my $other_series = $fft-E<gt>convlv($response_data)>
+
+See "Convolution" below.
+
+=item C<my $corr = $fft-E<gt>correl($other_fft)>
+
+See "Correlation" below.
+
+=item C<my $deconvlv = $fft-E<gt>deconvlv($respn)>
+
+See "Deconvolution" below.
+
+=item pdfct()
+
+B<For internal use.> Don't use directly.
+
+=item pdfst()
+
+B<For internal use.> Don't use directly.
+
+=item spctrm()
+
+See "Power Spectrum" below.
 
 =back
 
