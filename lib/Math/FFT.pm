@@ -28,7 +28,7 @@ sub new {
     my $nw = int(2 + 5*$n/4);
     my $ip = pack("i$nip", ());
     my $w = pack("d$nw", ());
-    bless {
+    return bless {
         type => '',
         mean => '',
         coeff => '',
@@ -48,7 +48,7 @@ sub clone {
     my $n = @$data;
     die "Cannot clone data of unequal sizes" unless $n == $self->{n};
     my $class = ref($self);
-    bless {
+    return bless {
         type => '',
         coeff => '',
         mean => '',
@@ -566,7 +566,7 @@ sub median {
     my ($n, $data);
     if ($data = shift) {
         die 'Must call with an array reference'
-        unless ref($data) eq 'ARRAY';
+            unless ref($data) eq 'ARRAY';
         $n = @$data;
     }
     else {
@@ -574,8 +574,12 @@ sub median {
         $n = $self->{n};
     }
     my @sorted = sort {$a <=> $b} @$data;
-    return $n % 2 == 1 ?
-    $sorted[($n-1)/2] : ($sorted[$n/2] + $sorted[$n/2-1])/2;
+    return
+    (
+        ($n & 0x1)
+        ? $sorted[($n-1)/2]
+        : ($sorted[$n/2] + $sorted[$n/2-1])/2
+    );
 }
 
 # Autoload methods go after =cut, and are processed by the autosplit program.
