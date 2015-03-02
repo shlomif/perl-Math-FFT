@@ -585,20 +585,19 @@ Math::FFT - Perl module to calculate Fast Fourier Transforms
 =head1 SYNOPSIS
 
   use Math::FFT;
+
   my $PI = 3.1415926539;
   my $N = 64;
-  my ($series, $other_series);
-  for (my $k=0; $k<$N; $k++) {
-      $series->[$k] = sin(4*$k*$PI/$N) + cos(6*$k*$PI/$N);
-  }
-  my $fft = new Math::FFT($series);
+
+  my $series = [map { sin(4*$_*$PI/$N) + cos(6*$_*$PI/$N) } 0 .. $N-1];
+  my $fft = Math::FFT->new($series);
   my $coeff = $fft->rdft();
   my $spectrum = $fft->spctrm;
   my $original_data = $fft->invrdft($coeff);
 
-  for (my $k=0; $k<$N; $k++) {
-      $other_series->[$k] = sin(16*$k*$PI/$N) + cos(8*$k*$PI/$N);
-  }
+  my $other_series =
+      [map { sin(16*$_*$PI/$N) + cos(8*$_*$PI/$N) } 0 .. $N-1];
+
   my $other_fft = $fft->clone($other_series);
   my $other_coeff = $other_fft->rdft();
   my $correlation = $fft->correl($other_fft);
@@ -611,7 +610,7 @@ The data, assumed to arise from a constant sampling rate, is
 represented by an array reference C<$data> (as described in the
 methods below), which is then used to create a C<Math::FFT> object as
 
-  my $fft = new Math::FFT($data);
+  my $fft = Math::FFT->new($data);
 
 The methods available include the following.
 
@@ -865,7 +864,7 @@ invoked. After this, they persist for the lifetime of the object.
 This aspect is exploited in a C<cloning> method; if a C<Math::FFT>
 object is created for a data set C<$data1> of size C<N>:
 
-  $fft1 = new Math::FFT($data1);
+  $fft1 = Math::FFT->new($data1);
 
 then a new C<Math::FFT> object can be created for a second data 
 set C<$data2> of the I<same> size C<N> by
@@ -899,13 +898,13 @@ The correlation between two functions is defined as
 This may be calculated, for two array references C<$data1>
 and C<$data2> of the same size C<$n>, as either
 
-   $fft1 = new Math::FFT($data1);
-   $fft2 = new Math::FFT($data2);
+   $fft1 = Math::FFT->new($data1);
+   $fft2 = Math::FFT->new($data2);
    $corr = $fft1->correl($fft2);
 
 or as
 
-   $fft1 = new Math::FFT($data1);
+   $fft1 = Math::FFT->new($data1);
    $corr = $fft1->correl($data2);
 
 The array reference C<$corr> is returned in wrap-around 
@@ -932,7 +931,7 @@ persists indefinitely in time, and the other is a response
 function of limited duration. The convolution may be calculated, 
 for two array references C<$data> and C<$respn>, as
 
-   $fft = new Math::FFT($data);
+   $fft = Math::FFT->new($data);
    $convlv = $fft->convlv($respn);
 
 with the returned C<$convlv> being an array reference. The method 
@@ -956,18 +955,18 @@ deconvolution reconstructs the original signal, given the convolution
 and the response function. The method is implemented, for two array 
 references C<$data> and C<$respn>, as
 
-   $fft = new Math::FFT($data);
+   $fft = Math::FFT->new($data);
    $deconvlv = $fft->deconvlv($respn);
 
 As a result, if the convolution of a data set C<$data> with
 a response function C<$respn> is calculated as
 
-   $fft1 = new Math::FFT($data);
+   $fft1 = Math::FFT->new($data);
    $convlv = $fft1->convlv($respn);
 
 then the deconvolution
 
-   $fft2 = new Math::FFT($convlv);
+   $fft2 = Math::FFT->new($convlv);
    $deconvlv = $fft2->deconvlv($respn);
 
 will give an array reference C<$deconvlv> containing the
@@ -1072,7 +1071,7 @@ spectrum returned will consist of C<m+1> elements.
 For convenience, a number of common statistical functions are 
 included for analyzing real data. After creating the object as
 
-  my $fft = new Math::FFT($data);
+  my $fft = Math::FFT->new($data);
 
 for a data set represented by the array reference C<$data>
 of size C<N>, these methods may be called as follows.
