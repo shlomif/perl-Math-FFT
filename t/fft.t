@@ -24,7 +24,7 @@ my $N = 16;
 my $NBIG = 32768;
 #my $NBIG = 16;
 my @subs = qw(cdft rdft ddct ddst dfct dfst);
-  foreach (@subs) {	
+  foreach (@subs) {
     my $start = $_ eq 'dfst' ? 1 : 0;
     my $end = $_ eq 'dfct' ? $NBIG+1 : $NBIG;
     my $orig = make_random($start, $end);

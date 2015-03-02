@@ -41,23 +41,23 @@ function prototypes
                         n >= 1, n = power of 2
         a[0...2*n-1]   :input/output data (double *)
                         input data
-                            a[2*j] = Re(x[j]), 
+                            a[2*j] = Re(x[j]),
                             a[2*j+1] = Im(x[j]), 0<=j<n
                         output data
-                            a[2*k] = Re(X[k]), 
+                            a[2*k] = Re(X[k]),
                             a[2*k+1] = Im(X[k]), 0<=k<n
         ip[0...*]      :work area for bit reversal (int *)
                         length of ip >= 2+sqrt(n)
-                        strictly, 
-                        length of ip >= 
+                        strictly,
+                        length of ip >=
                             2+(1<<(int)(log(n+0.5)/log(2))/2).
                         ip[0],ip[1] are pointers of the cos/sin table.
         w[0...n/2-1]   :cos/sin table (double *)
                         w[],ip[] are initialized if ip[0] == 0.
     [remark]
-        Inverse of 
+        Inverse of
             _cdft(2*n, -1, a, ip, w);
-        is 
+        is
             _cdft(2*n, 1, a, ip, w);
             for (j = 0; j <= 2 * n - 1; j++) {
                 a[j] *= 1.0 / n;
@@ -71,8 +71,8 @@ function prototypes
             R[k] = sum_j=0^n-1 a[j]*cos(2*pi*j*k/n), 0<=k<=n/2
             I[k] = sum_j=0^n-1 a[j]*sin(2*pi*j*k/n), 0<k<n/2
         <case2> IRDFT (excluding scale)
-            a[k] = (R[0] + R[n/2]*cos(pi*k))/2 + 
-                   sum_j=1^n/2-1 R[j]*cos(2*pi*j*k/n) + 
+            a[k] = (R[0] + R[n/2]*cos(pi*k))/2 +
+                   sum_j=1^n/2-1 R[j]*cos(2*pi*j*k/n) +
                    sum_j=1^n/2-1 I[j]*sin(2*pi*j*k/n), 0<=k<n
     [usage]
         <case1>
@@ -97,16 +97,16 @@ function prototypes
                                 a[1] = R[n/2]
         ip[0...*]      :work area for bit reversal (int *)
                         length of ip >= 2+sqrt(n/2)
-                        strictly, 
-                        length of ip >= 
+                        strictly,
+                        length of ip >=
                             2+(1<<(int)(log(n/2+0.5)/log(2))/2).
                         ip[0],ip[1] are pointers of the cos/sin table.
         w[0...n/2-1]   :cos/sin table (double *)
                         w[],ip[] are initialized if ip[0] == 0.
     [remark]
-        Inverse of 
+        Inverse of
             _rdft(n, 1, a, ip, w);
-        is 
+        is
             _rdft(n, -1, a, ip, w);
             for (j = 0; j <= n - 1; j++) {
                 a[j] *= 2.0 / n;
@@ -135,16 +135,16 @@ function prototypes
                             a[k] = C[k], 0<=k<n
         ip[0...*]      :work area for bit reversal (int *)
                         length of ip >= 2+sqrt(n/2)
-                        strictly, 
-                        length of ip >= 
+                        strictly,
+                        length of ip >=
                             2+(1<<(int)(log(n/2+0.5)/log(2))/2).
                         ip[0],ip[1] are pointers of the cos/sin table.
         w[0...n*5/4-1] :cos/sin table (double *)
                         w[],ip[] are initialized if ip[0] == 0.
     [remark]
-        Inverse of 
+        Inverse of
             _ddct(n, -1, a, ip, w);
-        is 
+        is
             a[0] *= 0.5;
             _ddct(n, 1, a, ip, w);
             for (j = 0; j <= n - 1; j++) {
@@ -182,16 +182,16 @@ function prototypes
                                 a[0] = S[n]
         ip[0...*]      :work area for bit reversal (int *)
                         length of ip >= 2+sqrt(n/2)
-                        strictly, 
-                        length of ip >= 
+                        strictly,
+                        length of ip >=
                             2+(1<<(int)(log(n/2+0.5)/log(2))/2).
                         ip[0],ip[1] are pointers of the cos/sin table.
         w[0...n*5/4-1] :cos/sin table (double *)
                         w[],ip[] are initialized if ip[0] == 0.
     [remark]
-        Inverse of 
+        Inverse of
             _ddst(n, -1, a, ip, w);
-        is 
+        is
             a[0] *= 0.5;
             _ddst(n, 1, a, ip, w);
             for (j = 0; j <= n - 1; j++) {
@@ -215,18 +215,18 @@ function prototypes
         t[0...n/2]     :work area (double *)
         ip[0...*]      :work area for bit reversal (int *)
                         length of ip >= 2+sqrt(n/4)
-                        strictly, 
-                        length of ip >= 
+                        strictly,
+                        length of ip >=
                             2+(1<<(int)(log(n/4+0.5)/log(2))/2).
                         ip[0],ip[1] are pointers of the cos/sin table.
         w[0...n*5/8-1] :cos/sin table (double *)
                         w[],ip[] are initialized if ip[0] == 0.
     [remark]
-        Inverse of 
+        Inverse of
             a[0] *= 0.5;
             a[n] *= 0.5;
             _dfct(n, a, t, ip, w);
-        is 
+        is
             a[0] *= 0.5;
             a[n] *= 0.5;
             _dfct(n, a, t, ip, w);
@@ -252,16 +252,16 @@ function prototypes
         t[0...n/2-1]   :work area (double *)
         ip[0...*]      :work area for bit reversal (int *)
                         length of ip >= 2+sqrt(n/4)
-                        strictly, 
-                        length of ip >= 
+                        strictly,
+                        length of ip >=
                             2+(1<<(int)(log(n/4+0.5)/log(2))/2).
                         ip[0],ip[1] are pointers of the cos/sin table.
         w[0...n*5/8-1] :cos/sin table (double *)
                         w[],ip[] are initialized if ip[0] == 0.
     [remark]
-        Inverse of 
+        Inverse of
             _dfst(n, a, t, ip, w);
-        is 
+        is
             _dfst(n, a, t, ip, w);
             for (j = 1; j <= n - 1; j++) {
                 a[j] *= 2.0 / n;
@@ -282,7 +282,7 @@ void _cdft(int n, int isgn, double *a, int *ip, double *w)
     void bitrv2conj(int n, int *ip, double *a);
     void cftfsub(int n, double *a, double *w);
     void cftbsub(int n, double *a, double *w);
-    
+
     if (n > (ip[0] << 2)) {
         makewt(n >> 2, ip, w);
     }
@@ -311,7 +311,7 @@ void _rdft(int n, int isgn, double *a, int *ip, double *w)
     void rftbsub(int n, double *a, int nc, double *c);
     int nw, nc;
     double xi;
-    
+
     nw = ip[0];
     if (n > (nw << 2)) {
         nw = n >> 2;
@@ -359,7 +359,7 @@ void _ddct(int n, int isgn, double *a, int *ip, double *w)
     void dctsub(int n, double *a, int nc, double *c);
     int j, nw, nc;
     double xr;
-    
+
     nw = ip[0];
     if (n > (nw << 2)) {
         nw = n >> 2;
@@ -418,7 +418,7 @@ void _ddst(int n, int isgn, double *a, int *ip, double *w)
     void dstsub(int n, double *a, int nc, double *c);
     int j, nw, nc;
     double xr;
-    
+
     nw = ip[0];
     if (n > (nw << 2)) {
         nw = n >> 2;
@@ -475,7 +475,7 @@ void _dfct(int n, double *a, double *t, int *ip, double *w)
     void dctsub(int n, double *a, int nc, double *c);
     int j, k, l, m, mh, nw, nc;
     double xr, xi, yr, yi;
-    
+
     nw = ip[0];
     if (n > (nw << 3)) {
         nw = n >> 3;
@@ -571,7 +571,7 @@ void _dfst(int n, double *a, double *t, int *ip, double *w)
     void dstsub(int n, double *a, int nc, double *c);
     int j, k, l, m, mh, nw, nc;
     double xr, xi, yr, yi;
-    
+
     nw = ip[0];
     if (n > (nw << 3)) {
         nw = n >> 3;
@@ -658,7 +658,7 @@ void makewt(int nw, int *ip, double *w)
     void bitrv2(int n, int *ip, double *a);
     int j, nwh;
     double delta, x, y;
-    
+
     ip[0] = nw;
     ip[1] = 1;
     if (nw > 2) {
@@ -687,7 +687,7 @@ void makect(int nc, int *ip, double *c)
 {
     int j, nch;
     double delta;
-    
+
     ip[1] = nc;
     if (nc > 1) {
         nch = nc >> 1;
@@ -709,7 +709,7 @@ void bitrv2(int n, int *ip, double *a)
 {
     int j, j1, k, k1, l, m, m2;
     double xr, xi, yr, yi;
-    
+
     ip[0] = 0;
     l = n;
     m = 1;
@@ -809,7 +809,7 @@ void bitrv2conj(int n, int *ip, double *a)
 {
     int j, j1, k, k1, l, m, m2;
     double xr, xi, yr, yi;
-    
+
     ip[0] = 0;
     l = n;
     m = 1;
@@ -920,7 +920,7 @@ void cftfsub(int n, double *a, double *w)
     void cftmdl(int n, int l, double *a, double *w);
     int j, j1, j2, j3, l;
     double x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
-    
+
     l = 2;
     if (n > 8) {
         cft1st(n, a, w);
@@ -972,7 +972,7 @@ void cftbsub(int n, double *a, double *w)
     void cftmdl(int n, int l, double *a, double *w);
     int j, j1, j2, j3, l;
     double x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
-    
+
     l = 2;
     if (n > 8) {
         cft1st(n, a, w);
@@ -1023,7 +1023,7 @@ void cft1st(int n, double *a, double *w)
     int j, k1, k2;
     double wk1r, wk1i, wk2r, wk2i, wk3r, wk3i;
     double x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
-    
+
     x0r = a[0] + a[2];
     x0i = a[1] + a[3];
     x1r = a[0] - a[2];
@@ -1128,7 +1128,7 @@ void cftmdl(int n, int l, double *a, double *w)
     int j, j1, j2, j3, k, k1, k2, m, m2;
     double wk1r, wk1i, wk2r, wk2i, wk3r, wk3i;
     double x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
-    
+
     m = l << 2;
     for (j = 0; j < l; j += 2) {
         j1 = j + l;
@@ -1254,7 +1254,7 @@ void rftfsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr, xi, yr, yi;
-    
+
     m = n >> 1;
     ks = 2 * nc / m;
     kk = 0;
@@ -1279,7 +1279,7 @@ void rftbsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr, xi, yr, yi;
-    
+
     a[1] = -a[1];
     m = n >> 1;
     ks = 2 * nc / m;
@@ -1306,7 +1306,7 @@ void dctsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr;
-    
+
     m = n >> 1;
     ks = nc / n;
     kk = 0;
@@ -1327,7 +1327,7 @@ void dstsub(int n, double *a, int nc, double *c)
 {
     int j, k, kk, ks, m;
     double wkr, wki, xr;
-    
+
     m = n >> 1;
     ks = nc / n;
     kk = 0;

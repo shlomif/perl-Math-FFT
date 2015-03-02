@@ -289,13 +289,13 @@ sub _check_n {
 sub correl {
   my ($self, $other) = @_;
   my $n = $self->{n};
-  my $d1 = $self->{type} ? 
+  my $d1 = $self->{type} ?
     ($self->{type} eq 'rdft' ? [ @{$self->{coeff}} ] :
     die 'correl must involve a real function' ) :
       $self->rdft &&  [ @{$self->{coeff}} ];
   my $d2 = [];
   if (ref($other) eq 'Math::FFT') {
-    $d2 = $other->{type} ? 
+    $d2 = $other->{type} ?
       ($other->{type} eq 'rdft' ? [ @{$other->{coeff}}] :
        die 'correl must involve a real function' ) :
 	 $other->rdft && [ @{$other->{coeff}}];
@@ -320,7 +320,7 @@ sub convlv {
   my $m = @$respn;
   die 'size of response data must be an odd integer' unless $m % 2 == 1;
   my $n = $self->{n};
-  my $d1 = $self->{type} ? 
+  my $d1 = $self->{type} ?
     ($self->{type} eq 'rdft' ? [ @{$self->{coeff}} ] :
     die 'correl must involve a real function' ) :
       $self->rdft &&  [ @{$self->{coeff}} ];
@@ -343,7 +343,7 @@ sub deconvlv {
   my $m = @$respn;
   die 'size of response data must be an odd integer' unless $m % 2 == 1;
   my $n = $self->{n};
-  my $d1 = $self->{type} ? 
+  my $d1 = $self->{type} ?
     ($self->{type} eq 'rdft' ? [ @{$self->{coeff}} ] :
     die 'correl must involve a real function' ) :
       $self->rdft &&  [ @{$self->{coeff}} ];
@@ -373,7 +373,7 @@ sub spctrm {
       if not $accept{$win_fun};
   }
   die 'Please specify a value for "segments" in spctrm()'
-    if ($args{number} and ! $args{segments}); 
+    if ($args{number} and ! $args{segments});
   my $n = $self->{n};
   my $d;
   my $n2 = 0;
@@ -412,7 +412,7 @@ sub spctrm {
       _spctrm($n, $spctrm, $d, $self->{ip}, $self->{w}, $n2, 1);
     }
     else {
-      $d = $self->{type} ? 
+      $d = $self->{type} ?
 	($self->{type} eq 'rdft' ? $self->{coeff} :
 	 die 'correl must involve a real function' ) :
 	   $self->rdft && $self->{coeff};
@@ -426,7 +426,7 @@ sub spctrm {
     my $k = $args{segments};
     my $m = $args{number};
     die 'Please specify a value for "number" in spctrm()'
-      if ($k and ! $m); 
+      if ($k and ! $m);
     die "number ($m) must an integer power of 2" unless _check_n($m);
     my $m2 = $m+$m;
     my $overlap = $args{overlap};
@@ -440,7 +440,7 @@ sub spctrm {
       }
     }
     else {
-      $n2 = $m2;      
+      $n2 = $m2;
     }
     if ($overlap) {
       my @old =  splice(@$d, 0, $m);
@@ -626,7 +626,7 @@ of 2.
 =item C<$coeff = $fft-E<gt>cdft();>
 
 This calculates the complex discrete Fourier transform
-for a data set C<x[j]>. Here, C<$data> is a reference to an 
+for a data set C<x[j]>. Here, C<$data> is a reference to an
 array C<data[0...2*n-1]> holding the data
 
   data[2*j] = Re(x[j]),
@@ -644,8 +644,8 @@ where
 =item C<$orig_data = $fft-E<gt>invcdft([$coeff]);>
 
 Calculates the inverse complex discrete Fourier transform
-on a data set C<x[j]>. If C<$coeff> is not given, it will be set 
-equal to an earlier call to C<$fft-E<gt>cdft()>. C<$coeff> is 
+on a data set C<x[j]>. If C<$coeff> is not given, it will be set
+equal to an earlier call to C<$fft-E<gt>cdft()>. C<$coeff> is
 a reference to an array C<coeff[0...2*n-1]> holding the data
 
   coeff[2*j] = Re(x[j]),
@@ -682,8 +682,8 @@ where
 =item C<$orig_data = $fft-E<gt>invrdft([$coeff]);>
 
 Calculates the inverse real discrete Fourier transform
-on a data set C<coeff[j]>. If C<$coeff> is not given, it will be set 
-equal to an earlier call to C<$fft-E<gt>rdft()>. C<$coeff> 
+on a data set C<coeff[j]>. If C<$coeff> is not given, it will be set
+equal to an earlier call to C<$fft-E<gt>rdft()>. C<$coeff>
 is a reference to an array C<coeff[0...n-1]> holding the data
 
   coeff[2*j] = R[j], 0<=j<n/2
@@ -692,8 +692,8 @@ is a reference to an array C<coeff[0...n-1]> holding the data
 
 An array reference C<$orig_data> is returned where, excluding the scale,
 
-  orig_data[k] = (R[0] + R[n/2]*cos(pi*k))/2 + 
-    sum_j=1^n/2-1 R[j]*cos(2*pi*j*k/n) + 
+  orig_data[k] = (R[0] + R[n/2]*cos(pi*k))/2 +
+    sum_j=1^n/2-1 R[j]*cos(2*pi*j*k/n) +
       sum_j=1^n/2-1 I[j]*sin(2*pi*j*k/n), 0<=k<n
 
 A scaling C<$orig_data-E<gt>[$i] *= 2.0/$n> is then done so that
@@ -709,14 +709,14 @@ array reference C<$coeff> is returned consisting of
 
 where
 
-  C[k] = sum_j=0^n-1 data[j]*cos(pi*(j+1/2)*k/n), 0<=k<n 
+  C[k] = sum_j=0^n-1 data[j]*cos(pi*(j+1/2)*k/n), 0<=k<n
 
 =item C<$orig_data = $fft-E<gt>invddct([$coeff]);>
 
 Computes the inverse discrete cosine tranform on a data set
-C<coeff[0...n-1]> contained in an array reference C<$coeff>. 
-If C<$coeff> is not given, it will be set equal to an earlier 
-call to C<$fft-E<gt>ddct()>. An array reference C<$orig_data> 
+C<coeff[0...n-1]> contained in an array reference C<$coeff>.
+If C<$coeff> is not given, it will be set equal to an earlier
+call to C<$fft-E<gt>ddct()>. An array reference C<$orig_data>
 is returned consisting of
 
   orig_data[k] = C[k], 0<=k<n
@@ -730,7 +730,7 @@ C<$orig_data> coincides with the original C<$data>.
 
 =item C<$coeff = $fft-E<gt>ddst();>
 
-Computes the discrete sine transform of a data set 
+Computes the discrete sine transform of a data set
 C<data[0...n-1]> contained in an array reference C<$data>. An
 array reference C<$coeff> is returned consisting of
 
@@ -743,14 +743,14 @@ where
 
 =item C<$orig_data = $fft-E<gt>invddst($coeff);>
 
-Computes the inverse discrete sine transform of a data set 
-C<coeff[0...n-1]> contained in an array reference C<$coeff>, arranged as 
+Computes the inverse discrete sine transform of a data set
+C<coeff[0...n-1]> contained in an array reference C<$coeff>, arranged as
 
  coeff[j] = A[j], 0<j<n
  coeff[0] = A[n]
 
-If C<$coeff> is not given, it will be set equal to an earlier 
-call to C<$fft-E<gt>ddst()>. An array reference C<$orig_data> 
+If C<$coeff> is not given, it will be set equal to an earlier
+call to C<$fft-E<gt>ddst()>. An array reference C<$orig_data>
 is returned consisting of
 
  orig_data[k] = S[k], 0<=k<n
@@ -766,7 +766,7 @@ C<$orig_data> coincides with the original C<$data>.
 
 Computes the real symmetric discrete Fourier transform of a
 data set C<data[0...n]> contained in the array reference C<$data>. An
-array reference C<$coeff> is returned consisting of 
+array reference C<$coeff> is returned consisting of
 
   coeff[k] = C[k], 0<=k<=n
 
@@ -777,9 +777,9 @@ where
 =item C<$orig_data = $fft-E<gt>invdfct($coeff);>
 
 Computes the inverse real symmetric discrete Fourier transform of a
-data set C<coeff[0...n]> contained in the array reference C<$coeff>. 
-If C<$coeff> is not given, it will be set equal to an earlier 
-call to C<$fft-E<gt>dfct()>. An array reference C<$orig_data> 
+data set C<coeff[0...n]> contained in the array reference C<$coeff>.
+If C<$coeff> is not given, it will be set equal to an earlier
+call to C<$fft-E<gt>dfct()>. An array reference C<$orig_data>
 is returned consisting of
 
   orig_data[k] = C[k], 0<=k<=n
@@ -788,7 +788,7 @@ where, excluding the scale,
 
   C[k] = sum_j=0^n coeff[j]*cos(pi*j*k/n), 0<=k<=n
 
-A scaling C<$coeff-E<gt>[0] *= 0.5>, C<$coeff-E<gt>[$n] *= 0.5>, and 
+A scaling C<$coeff-E<gt>[0] *= 0.5>, C<$coeff-E<gt>[$n] *= 0.5>, and
 C<$orig_data-E<gt>[$i] *= 2.0/$n> is then done so that
 C<$orig_data> coincides with the original C<$data>.
 
@@ -796,7 +796,7 @@ C<$orig_data> coincides with the original C<$data>.
 
 Computes the real anti-symmetric discrete Fourier transform of a
 data set C<data[0...n-1]> contained in the array reference C<$data>. An
-array reference C<$coeff> is returned consisting of 
+array reference C<$coeff> is returned consisting of
 
   coeff[k] = C[k], 0<k<n
 
@@ -810,8 +810,8 @@ where
 
 Computes the inverse real anti-symmetric discrete Fourier transform of a
 data set C<coeff[0...n-1]> contained in the array reference C<$coeff>.
-If C<$coeff> is not given, it will be set equal to an earlier 
-call to C<$fft-E<gt>dfst()>. An array reference C<$orig_data> is 
+If C<$coeff> is not given, it will be set equal to an earlier
+call to C<$fft-E<gt>dfst()>. An array reference C<$orig_data> is
 returned consisting of
 
   orig_data[k] = C[k], 0<k<n
@@ -855,10 +855,10 @@ See "Power Spectrum" below.
 
 =head2 CLONING
 
-The algorithm used in the transforms makes use of arrays for a work 
-area and for a cos/sin lookup table dependent only on the size of 
-the data set. These arrays are initialized when the C<Math::FFT> object 
-is created and then are populated when a transform method is first 
+The algorithm used in the transforms makes use of arrays for a work
+area and for a cos/sin lookup table dependent only on the size of
+the data set. These arrays are initialized when the C<Math::FFT> object
+is created and then are populated when a transform method is first
 invoked. After this, they persist for the lifetime of the object.
 
 This aspect is exploited in a C<cloning> method; if a C<Math::FFT>
@@ -866,7 +866,7 @@ object is created for a data set C<$data1> of size C<N>:
 
   $fft1 = Math::FFT->new($data1);
 
-then a new C<Math::FFT> object can be created for a second data 
+then a new C<Math::FFT> object can be created for a second data
 set C<$data2> of the I<same> size C<N> by
 
    $fft2 = $fft1->clone($data2);
@@ -892,7 +892,7 @@ user, if required.
 The correlation between two functions is defined as
 
              /
-   Corr(t) = | ds g(s+t) h(s) 
+   Corr(t) = | ds g(s+t) h(s)
              /
 
 This may be calculated, for two array references C<$data1>
@@ -907,13 +907,13 @@ or as
    $fft1 = Math::FFT->new($data1);
    $corr = $fft1->correl($data2);
 
-The array reference C<$corr> is returned in wrap-around 
-order - correlations at increasingly positive lags are in 
-C<$corr-E<gt>[0]> (zero lag) on up to C<$corr-E<gt>[$n/2-1]>, 
-while correlations at increasingly negative lags are in 
-C<$corr-E<gt>[$n-1]> on down to C<$corr-E<gt>[$n/2]>. The sign 
-convention used is such that if C<$data1> lags C<$data2> (that 
-is, is shifted to the right), then C<$corr> will show a peak 
+The array reference C<$corr> is returned in wrap-around
+order - correlations at increasingly positive lags are in
+C<$corr-E<gt>[0]> (zero lag) on up to C<$corr-E<gt>[$n/2-1]>,
+while correlations at increasingly negative lags are in
+C<$corr-E<gt>[$n-1]> on down to C<$corr-E<gt>[$n/2]>. The sign
+convention used is such that if C<$data1> lags C<$data2> (that
+is, is shifted to the right), then C<$corr> will show a peak
 at positive lags.
 
 =item Convolution
@@ -921,24 +921,24 @@ at positive lags.
 The convolution of two functions is defined as
 
                /
-   Convlv(t) = | ds g(s) h(t-s) 
+   Convlv(t) = | ds g(s) h(t-s)
                /
 
 This is similar to calculating the correlation between the
 two functions, but typically the functions here have a quite
-different physical interpretation - one is a signal which 
-persists indefinitely in time, and the other is a response 
-function of limited duration. The convolution may be calculated, 
+different physical interpretation - one is a signal which
+persists indefinitely in time, and the other is a response
+function of limited duration. The convolution may be calculated,
 for two array references C<$data> and C<$respn>, as
 
    $fft = Math::FFT->new($data);
    $convlv = $fft->convlv($respn);
 
-with the returned C<$convlv> being an array reference. The method 
-assumes that the response function C<$respn> has an I<odd> number 
-of elements C<$m> less than or equal to the number of elements C<$n> 
-of C<$data>. C<$respn> is assumed to be stored in wrap-around order - 
-the first half contains the response at positive times, while the 
+with the returned C<$convlv> being an array reference. The method
+assumes that the response function C<$respn> has an I<odd> number
+of elements C<$m> less than or equal to the number of elements C<$n>
+of C<$data>. C<$respn> is assumed to be stored in wrap-around order -
+the first half contains the response at positive times, while the
 second half, counting down from C<$respn-E<gt>[$m-1]>, contains the
 response at negative times.
 
@@ -948,11 +948,11 @@ Deconvolution undoes the effects of convoluting a signal
 with a known response function. In other words, in the relation
 
                /
-   Convlv(t) = | ds g(s) h(t-s) 
+   Convlv(t) = | ds g(s) h(t-s)
                /
 
 deconvolution reconstructs the original signal, given the convolution
-and the response function. The method is implemented, for two array 
+and the response function. The method is implemented, for two array
 references C<$data> and C<$respn>, as
 
    $fft = Math::FFT->new($data);
@@ -974,8 +974,8 @@ same elements as the original data C<$data>.
 
 =item Power Spectrum
 
-If the FFT of a real function of C<N> elements is calculated, 
-the C<N/2+1> elements of the power spectrum are defined, in terms 
+If the FFT of a real function of C<N> elements is calculated,
+the C<N/2+1> elements of the power spectrum are defined, in terms
 of the (complex) Fourier coefficients C<C[k]>, as
 
    P[0] = |C[0]|^2 / N^2
@@ -1002,21 +1002,21 @@ A problem that may arise in this procedure is I<leakage>: the
 power spectrum calculated for one bin contains contributions
 from nearby bins. To lessen this effect I<data windowing> is
 often used: multiply the original data C<d[j]> by a window
-function C<w[j]>, where j = 0, 1, ..., N-1. Some popular choices 
+function C<w[j]>, where j = 0, 1, ..., N-1. Some popular choices
 of such functions are
 
               | j - N/2 |
-  w[j] = 1 -  | ------- |     ... Bartlett   
+  w[j] = 1 -  | ------- |     ... Bartlett
               |   N/2   |
 
 
               / j - N/2 \ 2
-  w[j] = 1 -  | ------- |     ... Welch  
+  w[j] = 1 -  | ------- |     ... Welch
               \   N/2   /
 
 
            1   /                    \
-  w[j] =  ---  |1 - cos(2 pi j / N) |     ... Hann  
+  w[j] =  ---  |1 - cos(2 pi j / N) |     ... Hann
            2   \                    /
 
 
@@ -1025,7 +1025,7 @@ The C<spctrm> method, used as
     $fft = Math::FFT->new($data);
     $spectrum = $fft->spctrm(%options);
 
-returns an array reference C<$spectrum> representing the power 
+returns an array reference C<$spectrum> representing the power
 spectrum for a data set represented by an array reference C<$data>.
 The options available are
 
@@ -1034,8 +1034,8 @@ The options available are
 =item C<window =E<gt> window_name>
 
 This specifies the window function; if not given, no such
-function is used. Accepted values (see above) are C<"bartlett">, 
-C<"welch">, C<"hann">, and C<\&my_window>, where C<my_window> is a 
+function is used. Accepted values (see above) are C<"bartlett">,
+C<"welch">, C<"hann">, and C<\&my_window>, where C<my_window> is a
 user specified subroutine which must be of the form, for example,
 
    sub my_window {
@@ -1058,8 +1058,8 @@ segments. If not specified, no segmentation will be done.
 
 =item C<number =E<gt> m>
 
-This specifies that C<2m> data points will be used for 
-each segment, and must be a power of 2. The power 
+This specifies that C<2m> data points will be used for
+each segment, and must be a power of 2. The power
 spectrum returned will consist of C<m+1> elements.
 
 =back
@@ -1068,7 +1068,7 @@ spectrum returned will consist of C<m+1> elements.
 
 =head2 STATISTICAL FUNCTIONS
 
-For convenience, a number of common statistical functions are 
+For convenience, a number of common statistical functions are
 included for analyzing real data. After creating the object as
 
   my $fft = Math::FFT->new($data);
@@ -1084,7 +1084,7 @@ This returns the mean
 
   1/N * sum_j=0^N-1 data[j]
 
-If an array reference C<$data> is not given, the data set used 
+If an array reference C<$data> is not given, the data set used
 in creating C<$fft> will be used.
 
 =item C<$stdev = $fft-E<gt>stdev([$data]);>
@@ -1093,7 +1093,7 @@ This returns the standard deviation
 
   sqrt{ 1/(N-1) * sum_j=0^N-1 (data[j] - mean)**2 }
 
-If an array reference C<$data> is not given, the data set used 
+If an array reference C<$data> is not given, the data set used
 in creating C<$fft> will be used.
 
 =item C<$rms = $fft-E<gt>rms([$data]);>
@@ -1102,13 +1102,13 @@ This returns the root mean square
 
   sqrt{ 1/N * sum_j=0^N-1 (data[j])**2 }
 
-If an array reference C<$data> is not given, the data set used 
+If an array reference C<$data> is not given, the data set used
 in creating C<$fft> will be used.
 
 =item C<($min, $max) = $fft-E<gt>range([$data]);>
 
 This returns the minimum and maximum values of the data set.
-If an array reference C<$data> is not given, the data set used 
+If an array reference C<$data> is not given, the data set used
 in creating C<$fft> will be used.
 
 =item C<$median = $fft-E<gt>median([$data]);>
@@ -1117,7 +1117,7 @@ This returns the median of a data set. The median is defined,
 for the I<sorted> data set, as either the middle element, if the
 number of elements is odd, or as the interpolated value of
 the the two values on either side of the middle, if the number
-of elements is even. If an array reference C<$data> is not given, 
+of elements is even. If an array reference C<$data> is not given,
 the data set used in creating C<$fft> will be used.
 
 =back
@@ -1135,9 +1135,9 @@ L<Math::Pari> and L<PDL>
 The algorithm used in this module to calculate the Fourier
 transforms is based on the C routine of fft4g.c available
 at http://momonga.t.u-tokyo.ac.jp/~ooura/fft.html, which is
-copyrighted 1996-99 by Takuya OOURA. The file arrays.c included 
-here to handle passing arrays to and from C comes from the PGPLOT 
-module of Karl Glazebrook <kgb@aaoepp.aao.gov.au>. The perl code 
+copyrighted 1996-99 by Takuya OOURA. The file arrays.c included
+here to handle passing arrays to and from C comes from the PGPLOT
+module of Karl Glazebrook <kgb@aaoepp.aao.gov.au>. The perl code
 of Math::FFT is copyright 2000,2005 by Randy Kobes <r.kobes@uwinnipeg.ca>,
 and is distributed under the same terms as Perl itself.
 

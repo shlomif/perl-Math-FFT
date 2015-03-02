@@ -12,11 +12,11 @@ extern "C" {
 }
 #endif
 
-MODULE = Math::FFT		PACKAGE = Math::FFT		
+MODULE = Math::FFT		PACKAGE = Math::FFT
 
 PROTOTYPES: DISABLE
 
-void 
+void
 _cdft(n, isgn, a, ip, w)
   int n
   int isgn
@@ -27,7 +27,7 @@ _cdft(n, isgn, a, ip, w)
      a
 
 
-void 
+void
 _rdft(n, isgn, a, ip, w)
   int n
   int isgn
@@ -37,7 +37,7 @@ _rdft(n, isgn, a, ip, w)
   OUTPUT:
      a
 
-void 
+void
 _ddct(n, isgn, a, ip, w)
   int n
   int isgn
@@ -47,7 +47,7 @@ _ddct(n, isgn, a, ip, w)
   OUTPUT:
      a
 
-void 
+void
 _ddst(n, isgn, a, ip, w)
   int n
   int isgn
@@ -57,7 +57,7 @@ _ddst(n, isgn, a, ip, w)
   OUTPUT:
      a
 
-void 
+void
 pdfct(nt, n, a, t, ip, w)
   int nt
   int n
@@ -72,7 +72,7 @@ pdfct(nt, n, a, t, ip, w)
   OUTPUT:
      a
 
-void 
+void
 pdfst(nt, n, a, t, ip, w)
   int nt
   int n
@@ -87,7 +87,7 @@ pdfst(nt, n, a, t, ip, w)
   OUTPUT:
      a
 
-void 
+void
 _correl(n, corr, d1, d2, ip, w)
   int n
   double *corr = NO_INIT
@@ -137,7 +137,7 @@ _convlv(n, convlv, d1, d2, ip, w)
      convlv
 
 
-int 
+int
 _deconvlv(n, convlv, d1, d2, ip, w)
   int n
   double *convlv = NO_INIT
@@ -164,7 +164,7 @@ _deconvlv(n, convlv, d1, d2, ip, w)
 	if (mag < 1.0e-10) {
            RETVAL =1;
            break;
-        }	  
+        }
 	convlv[i] = (d1[i]*d2[i]+ d1[i+1]*d2[i+1])/mag;
 	convlv[i+1] = (d1[i+1]*d2[i] - d1[i]*d2[i+1])/mag;
       }
@@ -177,7 +177,7 @@ _deconvlv(n, convlv, d1, d2, ip, w)
    convlv
    RETVAL
 
-void 
+void
 _spctrm(n, spctrm, data, ip, w, n2, flag)
    int n
    double *spctrm = NO_INIT
@@ -200,7 +200,7 @@ _spctrm(n, spctrm, data, ip, w, n2, flag)
   OUTPUT:
      spctrm
 
-void 
+void
 _spctrm_bin(k, m, spctrm, data, ip, w, n2, tmp)
    int k
    int m
@@ -220,7 +220,7 @@ _spctrm_bin(k, m, spctrm, data, ip, w, n2, tmp)
     tmp = (double *) pack1D( (SV*) ST(7), 'd');
     for(i=0; i<k*m; i+=m) {
       for (j=0; j<m; j++) tmp[j] = data[i+j];
-      _rdft(m, 1, tmp, ip, w);   
+      _rdft(m, 1, tmp, ip, w);
       spctrm[0] += tmp[0]*tmp[0];
       spctrm[m/2] += tmp[1]*tmp[1];
       den += n2;
