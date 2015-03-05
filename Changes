@@ -1,5 +1,14 @@
 Revision history for Perl extension Math::FFT.
 
+1.29  2015-03-05
+    - Convert to Dist-Zilla.
+    - Reformatted the code.
+    - Get rid of trailing space.
+    - Got to 100% POD coverage.
+    - Other cleanups.
+    - As the original maintainer (Randy Kobes) passed away, the distribution
+    was adopted by Shlomi Fish (SHLOMIF).
+
 1.28  2005-09-03
      - bump version so PAUSE ignores deleted 1.27 package
 
