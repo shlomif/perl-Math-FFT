@@ -1,5 +1,8 @@
 Revision history for Perl extension Math::FFT.
 
+1.30  2015-03-25
+    - Convert the test files to Test::More and do some other cleanups.
+
 1.29  2015-03-05
     - Convert to Dist-Zilla.
     - Reformatted the code.
