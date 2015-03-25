@@ -20,7 +20,6 @@ ok (1, 'loaded');
 # Insert your test code below (better if it prints "ok 13"
 # (correspondingly "not ok 13") depending on the success of chunk 13
 # of the test code):
-my $num = 2;
 my $PI = 4.0*atan2(1,1);
 my $N = 16;
 my $NBIG = 32768;
@@ -36,24 +35,20 @@ my $corr = $fft->correl($data2);
 my $y = 8/sqrt(2);
 my $true = [0,-$y,-8,-$y,0,$y,8,$y,0,-$y,-8,-$y,0,$y,8,$y];
 # TEST
-check_error($num, 0, $N, $corr, $true);
-$num++;
+check_error(0, $N, $corr, $true);
 my $dum = $fft->invrdft();
 $corr = $fft->correl($data2);
 # TEST
-check_error($num, 0, $N, $corr, $true);
-$num++;
+check_error(0, $N, $corr, $true);
 my $fft5 = new Math::FFT($data2);
 $corr = $fft->correl($fft5);
 # TEST
-check_error($num, 0, $N, $corr, $true);
-$num++;
+check_error(0, $N, $corr, $true);
 my $fft6 = Math::FFT->new($data2);
 my $discard = $fft6->rdft();
 $corr = $fft->correl($fft6);
 # TEST
-check_error($num, 0, $N, $corr, $true);
-$num++;
+check_error(0, $N, $corr, $true);
 
 my $M = 9;
 my $data3;
@@ -65,8 +60,7 @@ my $u = sqrt(2);
 my $v = 2+$u;
 $true = [$u,$v,$v,$u,-$u,-$v,-$v,-$u,$u,$v,$v,$u,-$u,-$v,-$v,-$u];
 # TEST
-check_error($num, 0, $N, $convlv, $true);
-$num++;
+check_error(0, $N, $convlv, $true);
 
 my $data4;
 for (my $i=0; $i<$M; $i++) {
@@ -76,8 +70,7 @@ $convlv = $fft->convlv($data4);
 my $fft4 = new Math::FFT($convlv);
 my $orig_data = $fft4->deconvlv($data4);
 # TEST
-check_error($num, 0, $N, $orig_data, $data1);
-$num++;
+check_error(0, $N, $orig_data, $data1);
 
 my $data;
 # The following data file is taken from the test of the power
@@ -97,48 +90,38 @@ my $s = new Math::FFT($data);
 my $tol = 2e-05;
 my $spec = $s->spctrm(segments => 32, number=> 16, overlap => 0);
 # TEST
-check_error($num, 0, $max, $spec, $results->{unity}->{no}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{unity}->{no}, $tol);
 $spec = $s->spctrm(segments => 16, number=> 16, overlap => 1);
 # TEST
-check_error($num, 0, $max, $spec, $results->{unity}->{ov}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{unity}->{ov}, $tol);
 
 $spec = $s->spctrm(segments => 32, number=> 16, overlap => 0, window => 'hann');
 # TEST
-check_error($num, 0, $max, $spec, $results->{hamm}->{no}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{hamm}->{no}, $tol);
 $spec = $s->spctrm(segments => 16, number=> 16, overlap => 1, window => 'hann');
 # TEST
-check_error($num, 0, $max, $spec, $results->{hamm}->{ov}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{hamm}->{ov}, $tol);
 
 $spec = $s->spctrm(segments => 32, number=> 16, overlap => 0, window => 'welch');
 # TEST
-check_error($num, 0, $max, $spec, $results->{welch}->{no}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{welch}->{no}, $tol);
 $spec = $s->spctrm(segments => 16, number=> 16, overlap => 1, window => 'welch');
 # TEST
-check_error($num, 0, $max, $spec, $results->{welch}->{ov}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{welch}->{ov}, $tol);
 
 $spec = $s->spctrm(segments => 32, number=> 16, overlap => 0, window => 'bartlett');
 # TEST
-check_error($num, 0, $max, $spec, $results->{bartlett}->{no}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{bartlett}->{no}, $tol);
 $spec = $s->spctrm(segments => 16, number=> 16, overlap => 1, window => 'bartlett');
 # TEST
-check_error($num, 0, $max, $spec, $results->{bartlett}->{ov}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{bartlett}->{ov}, $tol);
 
 $spec = $s->spctrm(segments => 32, number=> 16, overlap => 0, window => \&my_test);
 # TEST
-check_error($num, 0, $max, $spec, $results->{bartlett}->{no}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{bartlett}->{no}, $tol);
 $spec = $s->spctrm(segments => 16, number=> 16, overlap => 1, window => \&my_test);
 # TEST
-check_error($num, 0, $max, $spec, $results->{bartlett}->{ov}, $tol);
-$num++;
+check_error(0, $max, $spec, $results->{bartlett}->{ov}, $tol);
 $N = 32;
 $max = 8;
 $data = [];
@@ -151,19 +134,17 @@ $spec = $t->spctrm();
 $true = [ 0.000000, 0.500000, 0.000000, 0.000000, 0.000000,
    0.000000, 0.000000, 0.000000];
 # TEST
-check_error($num, 0, $max, $spec, $true, $tol);
-$num++;
+check_error(0, $max, $spec, $true, $tol);
 $spec = $t->spctrm(window => 'bartlett');
 $true = [ 0.125423, 0.372093, 0.079131, 0.000000, 0.001995,
       0.000000, 0.000561, 0.000000];
 # TEST
-check_error($num, 0, $max, $spec, $true, $tol);
-$num++;
+check_error(0, $max, $spec, $true, $tol);
 
 
 sub check_error {
     local $Test::Builder::Level = $Test::Builder::Level + 1;
-    my ($num, $start, $end, $old, $new, $tol) = @_;
+    my ($start, $end, $old, $new, $tol) = @_;
     $tol ||= 2e-10;
     my $error = 0;
     for (my $j=$start; $j<$end; $j++) {
