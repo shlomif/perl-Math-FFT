@@ -288,9 +288,9 @@ sub invdfst {
 
 # check if $n is a power of 2
 sub _check_n {
-    my $n = shift;
-    my $y = log($n) / 0.693147180559945309417;
-    return abs($y-int($y)) < 1e-6 ? 1 : 0;
+    my ($n) = @_;
+
+    return scalar($n == int($n) and $n > 0 and (! ($n & ($n-1))));
 }
 
 sub correl {
@@ -406,7 +406,7 @@ sub spctrm {
         },
     };
     if (not $args{segments} or ($args{segments} == 1 and not $args{number})) {
-        die "data size ($n) must an integer power of 2" unless _check_n($n);
+        die "data size ($n) must be an integer power of 2" unless _check_n($n);
         if ($win_fun) {
             $d = [ @{$self->{data}}];
             $win_fun = $win_sub->{$win_fun} if ref($win_fun) ne 'CODE';
@@ -434,7 +434,7 @@ sub spctrm {
         my $m = $args{number};
         die 'Please specify a value for "number" in spctrm()'
         if ($k and ! $m);
-        die "number ($m) must an integer power of 2" unless _check_n($m);
+        die "number ($m) must be an integer power of 2" unless _check_n($m);
         my $m2 = $m+$m;
         my $overlap = $args{overlap};
         my $N = $overlap ? ($k+1)*$m : 2*$k*$m;
