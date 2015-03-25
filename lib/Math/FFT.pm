@@ -367,6 +367,9 @@ sub deconvlv {
     return $convlv;
 }
 
+{
+
+    my $PI2 = 2 * 4.0 * atan2(1,1);
 sub spctrm {
     my ($self, %args) = @_;
     my %accept = map {$_ => 1} qw(window segments number overlap);
@@ -385,25 +388,24 @@ sub spctrm {
     my $d;
     my $n2 = 0;
     my $spctrm = [];
-    my $win_sub = {
-        'hamm' => sub {
+    my $win_sub = do {
+        my $h = sub {
             my ($j, $n) = @_;
-            my $pi = 4.0*atan2(1,1);
-            return (1 - cos(2*$pi*$j/$n))/2;
-        },
-        'hann' => sub {
-            my ($j, $n) = @_;
-            my $pi = 4.0*atan2(1,1);
-            return (1 - cos(2*$pi*$j/$n))/2;
-        },
-        'welch' => sub {
-            my ($j, $n) = @_;
-            return 1 - 4*($j-$n/2)*($j-$n/2)/$n/$n;
-        },
-        'bartlett' => sub {
-            my ($j, $n) = @_;
-            return 1 - abs(2*($j-$n/2)/$n);
-        },
+            return (1 - cos($PI2*$j/$n))/2;
+        };
+
+        +{
+            'hamm' => $h,
+            'hann' => $h,
+            'welch' => sub {
+                my ($j, $n) = @_;
+                return 1 - 4*($j-$n/2)*($j-$n/2)/$n/$n;
+            },
+            'bartlett' => sub {
+                my ($j, $n) = @_;
+                return 1 - abs(2*($j-$n/2)/$n);
+            },
+        }
     };
     if (not $args{segments} or ($args{segments} == 1 and not $args{number})) {
         die "data size ($n) must be an integer power of 2" unless _check_n($n);
@@ -479,6 +481,7 @@ sub spctrm {
         _spctrm_bin($k, $m2, $spctrm, $data, \$ip, \$w, $n2, $tmp);
     }
     return $spctrm;
+}
 }
 
 sub mean {
