@@ -1,6 +1,6 @@
 Revision history for Perl extension Math::FFT.
 
-1.31  Unknown
+1.31  2015-03-25
     - Convert n2 in _spctrm to "double" so it won't overflow as an int
         - Fix https://rt.cpan.org/Ticket/Display.html?id=22068
         - Thanks to thomas.poleschner@gmx.de for the report.
