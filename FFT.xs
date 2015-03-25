@@ -184,7 +184,7 @@ _spctrm(n, spctrm, data, ip, w, n2, flag)
    double *data
    int *ip
    double *w
-   int n2
+   double n2
    int flag
   PREINIT:
     int i;
