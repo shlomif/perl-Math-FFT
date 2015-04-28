@@ -3,6 +3,8 @@ package Math::FFT;
 use strict;
 use warnings;
 
+use 5.008;
+
 use vars qw($VERSION @ISA);
 require DynaLoader;
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension Math::FFT.
 
+1.32  2015-04-28
+    - Specify minimum version of perl as 5.8.x
+        - CPANTS / Kwalitee
+
 1.31  2015-03-25
     - Convert n2 in _spctrm to "double" so it won't overflow as an int
         - Fix https://rt.cpan.org/Ticket/Display.html?id=22068
