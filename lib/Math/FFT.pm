@@ -717,7 +717,7 @@ C<$orig_data> coincides with the original C<$data>.
 
 =item C<$coeff = $fft-E<gt>ddct();>
 
-Computes the discrete cosine tranform on a data set
+Computes the discrete cosine transform on a data set
 C<data[0...n-1]> contained in an array reference C<$data>. An
 array reference C<$coeff> is returned consisting of
 
@@ -729,7 +729,7 @@ where
 
 =item C<$orig_data = $fft-E<gt>invddct([$coeff]);>
 
-Computes the inverse discrete cosine tranform on a data set
+Computes the inverse discrete cosine transform on a data set
 C<coeff[0...n-1]> contained in an array reference C<$coeff>.
 If C<$coeff> is not given, it will be set equal to an earlier
 call to C<$fft-E<gt>ddct()>. An array reference C<$orig_data>
