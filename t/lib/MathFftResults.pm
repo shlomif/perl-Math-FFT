@@ -1,6 +1,14 @@
+package MathFftResults;
+
+use strict;
+use warnings;
+
+use parent 'Exporter';
+our @EXPORT_OK = qw/ results /;
+
 sub results
 {
-  my $results = {
+  return +{
 		 hamm => {
 			  ov => [ 0.001668, 0.005177, 0.067501, 0.070162,
 				  0.084776, 0.020786, 0.000074, 0.000054,
@@ -42,6 +50,6 @@ sub results
 				   0.000388, 0.000316, 0.000277, 0.000270],
 			  },
 		};
-  return $results;
 }
+
 1;

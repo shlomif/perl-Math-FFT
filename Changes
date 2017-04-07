@@ -1,5 +1,10 @@
 Revision history for Perl extension Math::FFT.
 
+1.33  2017-04-07
+    - Hopefully fix the tests with "." gone from @INC :
+        - http://www.cpantesters.org/cpan/report/873193f8-15df-11e7-a7e6-820fe85ef7bd
+        - Thanks to DCOLLINS for the report.
+
 1.32  2015-04-28
     - Specify minimum version of perl as 5.8.x
         - CPANTS / Kwalitee

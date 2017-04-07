@@ -12,6 +12,9 @@ use warnings;
 use Test::More tests => 19;
 use Math::FFT;
 
+use lib './t/lib';
+use MathFftResults qw/ results /;
+
 # TEST
 ok (1, 'loaded');
 
@@ -84,7 +87,6 @@ while (<SPCTRL>) {
 }
 close (SPCTRL);
 my $max = 15;
-require 't/results.pl' or die "Cannot: $!";
 my $results = results();
 my $s = new Math::FFT($data);
 my $tol = 2e-05;
