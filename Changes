@@ -1,5 +1,9 @@
 Revision history for Perl extension Math::FFT.
 
+1.34  2017-04-07
+    - Don't pack .*~ temporary files.
+        - Add MANIFEST.SKIP .
+
 1.33  2017-04-07
     - Hopefully fix the tests with "." gone from @INC :
         - http://www.cpantesters.org/cpan/report/873193f8-15df-11e7-a7e6-820fe85ef7bd
