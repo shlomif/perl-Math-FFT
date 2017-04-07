@@ -14,7 +14,7 @@ require DynaLoader;
 # names by default without a very good reason. Use EXPORT_OK instead.
 # Do not simply export all your public functions/methods/constants.
 
-our $VERSION = '1.32';
+our $VERSION = '1.33';
 
 bootstrap Math::FFT $VERSION;
 
