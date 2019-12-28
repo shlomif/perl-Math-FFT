@@ -29,7 +29,7 @@ my $NBIG = 32768;
 #my $NBIG = 16;
 
 my ($data1, $data2);
-for (my $i=0; $i<$N; $i++) {
+for (my $i=0; $i<$N; ++$i) {
    $data1->[$i] = cos(4*$i*$PI/$N);
    $data2->[$i] = sin(4*$i*$PI/$N);
 }
@@ -55,7 +55,7 @@ check_error(0, $N, $corr, $true);
 
 my $M = 9;
 my $data3;
-for (my $i=0; $i<$M; $i++) {
+for (my $i=0; $i<$M; ++$i) {
    $data3->[$i] = sin(4*$i*$PI/$N);
 }
 my $convlv = $fft->convlv($data3);
@@ -66,7 +66,7 @@ $true = [$u,$v,$v,$u,-$u,-$v,-$v,-$u,$u,$v,$v,$u,-$u,-$v,-$v,-$u];
 check_error(0, $N, $convlv, $true);
 
 my $data4;
-for (my $i=0; $i<$M; $i++) {
+for (my $i=0; $i<$M; ++$i) {
    $data4->[$i] = cos(4*$i*$PI/$N);
 }
 $convlv = $fft->convlv($data4);
@@ -127,7 +127,7 @@ check_error(0, $max, $spec, $results->{bartlett}->{ov}, $tol);
 $N = 32;
 $max = 8;
 $data = [];
-for (my $i=0; $i<16; $i++) {
+for (my $i=0; $i<16; ++$i) {
    $data->[$i] = cos(4*$i*$PI/$N);
 }
 

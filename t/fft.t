@@ -38,7 +38,7 @@ my $series = [];
 my $coeff = [];
 my $start = 0;
 my $end = $N+1;
-for (my $k=$start; $k<$end; $k++) {
+for (my $k=$start; $k<$end; ++$k) {
   $series->[$k] = cos(3*$k*$PI/$N);
 }
 my $fft = Math::FFT->new($series);
@@ -55,7 +55,7 @@ $coeff = [];
 $calc = [];
 $start = 1;
 $end = $N;
-for (my $k=$start; $k<$end; $k++) {
+for (my $k=$start; $k<$end; ++$k) {
   $series->[$k] = sin(3*$k*$PI/$N);
 }
 $fft = Math::FFT->new($series);
@@ -72,7 +72,7 @@ $series = [];
 $coeff = [];
 $start = 0;
 $end = $N;
-for (my $k=$start; $k<$end; $k++) {
+for (my $k=$start; $k<$end; ++$k) {
     $series->[$k] = cos(5*($k+0.5)*$PI/$N);
 }
 $fft = Math::FFT->new($series);
@@ -89,7 +89,7 @@ $series = [];
 $coeff = [];
 $start = 0;
 $end = $N;
-for (my $k=$start; $k<$end; $k++) {
+for (my $k=$start; $k<$end; ++$k) {
     $series->[$k] = sin(5*($k+0.5)*$PI/$N);
 }
 $fft = Math::FFT->new($series);
@@ -106,7 +106,7 @@ $series = [];
 $coeff = [];
 $start = 0;
 $end = $N;
-for (my $k=$start; $k<$end; $k++) {
+for (my $k=$start; $k<$end; ++$k) {
     $series->[$k] = sin(4*$k*$PI/$N) + cos(6*$k*$PI/$N);
 }
 $fft = Math::FFT->new($series);
@@ -123,7 +123,7 @@ $series = [];
 $coeff = [];
 $start = 0;
 $end = $N;
-for (my $k=$start; $k<$end/2; $k++) {
+for (my $k=$start; $k<$end/2; ++$k) {
     $series->[2*$k] = cos(8*$k*$PI/$N);
     $series->[2*$k+1] = sin(8*$k*$PI/$N)
 }
@@ -153,7 +153,7 @@ check_error($start, $end, $orig, $calc);
 sub make_random {
   my ($start, $end) = @_;
   my $a = [];
-  for (my $k=$start; $k<$end; $k++) {
+  for (my $k=$start; $k<$end; ++$k) {
     $a->[$k] = rand;
   }
   return $a;
@@ -161,7 +161,7 @@ sub make_random {
 sub make_random2 {
   my ($start, $end) = @_;
   my $a = [];
-  for (my $k=$start; $k<$end; $k++) {
+  for (my $k=$start; $k<$end; ++$k) {
     $a->[$k] = 15*rand;
   }
   return $a;
@@ -172,7 +172,7 @@ sub check_error {
 
     my ($start, $end, $old, $new) = @_;
     my $error = 0;
-    for (my $j=$start; $j<$end; $j++) {
+    for (my $j=$start; $j<$end; ++$j) {
         $error += abs($old->[$j] - $new->[$j]);
     }
 

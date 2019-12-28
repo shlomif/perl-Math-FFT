@@ -333,10 +333,10 @@ sub convlv {
     ($self->{type} eq 'rdft' ? [ @{$self->{coeff}} ] :
         die 'correl must involve a real function' ) :
     $self->rdft &&  [ @{$self->{coeff}} ];
-    for (my $i=1; $i<=($m-1)/2; $i++) {
+    for (my $i=1; $i<=($m-1)/2; ++$i) {
         $respn->[$n-$i] = $respn->[$m-$i];
     }
-    for (my $i=($m+3)/2; $i<=$n-($m-1)/2; $i++) {
+    for (my $i=($m+3)/2; $i<=$n-($m-1)/2; ++$i) {
         $respn->[$i-1] = 0.0;
     }
     my $convlv = [];
@@ -356,10 +356,10 @@ sub deconvlv {
     ($self->{type} eq 'rdft' ? [ @{$self->{coeff}} ] :
         die 'correl must involve a real function' ) :
     $self->rdft &&  [ @{$self->{coeff}} ];
-    for (my $i=1; $i<=($m-1)/2; $i++) {
+    for (my $i=1; $i<=($m-1)/2; ++$i) {
         $respn->[$n-$i] = $respn->[$m-$i];
     }
-    for (my $i=($m+3)/2; $i<=$n-($m-1)/2; $i++) {
+    for (my $i=($m+3)/2; $i<=$n-($m-1)/2; ++$i) {
         $respn->[$i-1] = 0.0;
     }
     my $convlv = [];
@@ -414,7 +414,7 @@ sub spctrm {
         if ($win_fun) {
             $d = [ @{$self->{data}}];
             $win_fun = $win_sub->{$win_fun} if ref($win_fun) ne 'CODE';
-            for (my $j=0; $j<$n; $j++) {
+            for (my $j=0; $j<$n; ++$j) {
                 my $w = $win_fun->($j, $n);
                 $d->[$j] *= $w;
                 $n2 += $w * $w;
@@ -445,7 +445,7 @@ sub spctrm {
         die "Need $N data points (data only has $n)" if $N > $n;
         if ($win_fun) {
             $win_fun = $win_sub->{$win_fun} if ref($win_fun) ne 'CODE';
-            for (my $j=0; $j<$m2; $j++) {
+            for (my $j=0; $j<$m2; ++$j) {
                 $w[$j] = $win_fun->($j, $m2);
                 $n2 += $w[$j]*$w[$j];
             }
