@@ -1245,7 +1245,7 @@ L<Math::Pari> and L<PDL>
 
 The algorithm used in this module to calculate the Fourier
 transforms is based on the C routine of fft4g.c available
-at http://momonga.t.u-tokyo.ac.jp/~ooura/fft.html, which is
+at L<https://www.kurims.kyoto-u.ac.jp/~ooura/fft.html> , which is
 copyrighted 1996-99 by Takuya OOURA. The file arrays.c included
 here to handle passing arrays to and from C comes from the PGPLOT
 module of Karl Glazebrook <kgb@aaoepp.aao.gov.au>. The perl code
